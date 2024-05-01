@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { StyleSheet, View, Text, Image, Pressable } from "react-native"
+import { StyleSheet, View, Text, Image, Pressable, FlatList } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -58,6 +58,8 @@ export const Counter = () => {
         setRecords([]);
     }
 
+
+
     return (
         <View style={styles.body} >
 
@@ -70,9 +72,17 @@ export const Counter = () => {
             </View>
 
             <View style={styles.records} >
-                    {records.map((records, index) => (
-                        <Text style={{ margin: 5, fontSize: 30 }} key={index} >{records}</Text>
-                    ))}
+                <FlatList
+                style={{flex:1}}
+                    data={records}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                        <View style={{ width: '90%', height: 50, borderWidth: 2, borderColor: "#6EBF5D", borderRadius: 20, justifyContent: "space-between", alignItems: "center", margin: 5, flexDirection: "row", paddingHorizontal: 20 }}>
+                            <View style={{ width: 30, height: 30, borderRadius: 15, borderWidth: 2, justifyContent: "center", alignItems: "center", borderColor: "#003953" }} ><Text style={{ fontSize: 17, fontWeight: "500" }}>{index + 1}</Text></View>
+                            <Text style={{ margin: 5, fontSize: 30 }}>{item}</Text>
+                        </View>
+                    )}
+                />
             </View>
 
             <View style={styles.buttonsArea} >
@@ -125,9 +135,11 @@ const styles = StyleSheet.create({
     records: {
         flex: 4,
         justifyContent: "flex-start",
-        alignItems:"flex-end",
-        paddingRight:20,
-        paddingTop:20
+        alignItems: "flex-end",
+        paddingRight: 20,
+        paddingTop: 20,
+        borderTopWidth:2,
+        borderColor:"#003953"
         //backgroundColor: "blue"
     },
     buttonsArea: {
@@ -135,7 +147,9 @@ const styles = StyleSheet.create({
         //backgroundColor: "purple",
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderTopWidth:2,
+        borderColor:"#003953"
     },
     buttons: {
         flex: 1,
